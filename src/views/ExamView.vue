@@ -6,9 +6,20 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 const data = ref(getExamData(route.params.id[0]))
 console.log('data = ', getExamData(route.params.id[0]))
+
+const correctNum = ref(0)
+
+const countCorrect = (num: number) => {
+  if (correctNum.value < 1 && num < 0) {
+    correctNum.value += 0
+  } else {
+    correctNum.value += num
+  }
+}
 </script>
 
 <template>
+  <p>分数：{{ correctNum }}</p>
   <QuestionItem
     v-for="question in data?.questions"
     :key="question.number"
@@ -17,5 +28,6 @@ console.log('data = ', getExamData(route.params.id[0]))
     :options="question.options"
     :answer-options="question.answerOptions"
     :analysis="question.analysis"
+    @count-correct="countCorrect"
   />
 </template>

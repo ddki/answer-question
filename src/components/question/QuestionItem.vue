@@ -11,6 +11,9 @@ const props = defineProps<{
   answerOptions: Array<string>
   analysis: string
 }>()
+
+const emit = defineEmits(['countCorrect'])
+
 const selectOptions: Ref<Array<string>> = ref([])
 const state = reactive({
   showAnalysis: false
@@ -26,6 +29,10 @@ const change = () => {
       console.log('多选', props.answerOptions, answer)
       if (props.answerOptions.length != answer.length) {
         state.showAnalysis = true
+      } else {
+        if (state.showAnalysis === false) {
+          emit('countCorrect', 1)
+        }
       }
     }
   } else {
@@ -34,6 +41,10 @@ const change = () => {
     console.log('单选', props.answerOptions, answer)
     if (props.answerOptions.length != answer.length) {
       state.showAnalysis = true
+    } else {
+      if (state.showAnalysis === false) {
+        emit('countCorrect', 1)
+      }
     }
   }
 }
@@ -42,7 +53,8 @@ const change = () => {
 <template>
   <div class="question">
     <p class="question_title">
-      <span class="question_number"> {{ number }}. </span>{{ content }}
+      <span class="question_number"> {{ number }}. </span>
+      <span v-html="content"></span>
     </p>
     <el-checkbox-group
       v-model="selectOptions"
@@ -51,17 +63,21 @@ const change = () => {
       v-if="answerOptions.length > 1"
     >
       <el-checkbox v-for="option in options" :key="option" :label="option.value">
-        {{ option.content }}
+        <template #default>
+          <p v-html="option.content"></p>
+        </template>
       </el-checkbox>
     </el-checkbox-group>
     <el-radio-group v-model="selectOptions" @change="change" v-else>
       <el-radio v-for="option in options" :key="option" :label="option.value">
-        {{ option.content }}
+        <template #default>
+          <p v-html="option.content"></p>
+        </template>
       </el-radio>
     </el-radio-group>
     <div class="question_analysis" v-show="state.showAnalysis">
-      <span class="question_answerOptions">正确答案：{{ answerOptions.toString() }}</span>
-      <p class="question_analysis_content">解析：{{ analysis }}</p>
+      <p class="question_answerOptions">正确答案：{{ answerOptions.toString() }}</p>
+      <p class="question_analysis_content" v-html="analysis"></p>
     </div>
   </div>
 </template>
@@ -72,7 +88,7 @@ const change = () => {
   border-bottom: 0.05rem solid #232327;
 }
 .question_title {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 .question_number {
   margin-right: 0.5rem;

@@ -7,7 +7,6 @@ body {
 }
 
 #app {
-  min-width: 1280px;
   font-weight: normal;
   display: flex;
   flex-direction: column;
