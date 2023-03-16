@@ -48,4 +48,15 @@ main {
   width: 100%;
   box-shadow: 2px 2px 4px #232327;
 }
+
+@media (max-width: 1024px) {
+  header {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+  nav {
+    flex-direction: column;
+  }
+}
 </style>

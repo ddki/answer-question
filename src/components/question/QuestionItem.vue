@@ -64,14 +64,14 @@ const change = () => {
     >
       <el-checkbox v-for="option in options" :key="option" :label="option.value">
         <template #default>
-          <p v-html="option.content"></p>
+          <span>{{ option.value }}. </span><span v-html="option.content"></span>
         </template>
       </el-checkbox>
     </el-checkbox-group>
     <el-radio-group v-model="selectOptions" @change="change" v-else>
       <el-radio v-for="option in options" :key="option" :label="option.value">
         <template #default>
-          <p v-html="option.content"></p>
+          <span>{{ option.value }}. </span><span v-html="option.content"></span>
         </template>
       </el-radio>
     </el-radio-group>

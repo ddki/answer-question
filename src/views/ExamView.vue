@@ -19,15 +19,23 @@ const countCorrect = (num: number) => {
 </script>
 
 <template>
-  <p>分数：{{ correctNum }}</p>
-  <QuestionItem
-    v-for="question in data?.questions"
-    :key="question.number"
-    :number="question.number"
-    :content="question.content"
-    :options="question.options"
-    :answer-options="question.answerOptions"
-    :analysis="question.analysis"
-    @count-correct="countCorrect"
-  />
+  <div class="question_box">
+    <p>分数：{{ correctNum }}</p>
+    <QuestionItem
+      v-for="question in data?.questions"
+      :key="question.number"
+      :number="question.number"
+      :content="question.content"
+      :options="question.options"
+      :answer-options="question.answerOptions"
+      :analysis="question.analysis"
+      @count-correct="countCorrect"
+    />
+  </div>
 </template>
+
+<style scoped>
+.question_box {
+  width: 100%;
+}
+</style>
