@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "vue.vscode-typescript-vue-plugin",
+    "antfu.vite",
+    "esbenp.prettier-vscode"
+  ]
+}
